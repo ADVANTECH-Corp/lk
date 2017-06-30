@@ -319,8 +319,8 @@ static void set_sdc_power_ctrl()
 	struct tlmm_cfgs sdc1_hdrv_cfg[] =
 	{
 		{ SDC1_CLK_HDRV_CTL_OFF,  TLMM_CUR_VAL_16MA, TLMM_HDRV_MASK },
-		{ SDC1_CMD_HDRV_CTL_OFF,  TLMM_CUR_VAL_10MA, TLMM_HDRV_MASK },
-		{ SDC1_DATA_HDRV_CTL_OFF, TLMM_CUR_VAL_10MA, TLMM_HDRV_MASK },
+		{ SDC1_CMD_HDRV_CTL_OFF,  TLMM_CUR_VAL_16MA, TLMM_HDRV_MASK },
+		{ SDC1_DATA_HDRV_CTL_OFF, TLMM_CUR_VAL_16MA, TLMM_HDRV_MASK },
 	};
 
 	/* Pull configs for sdc pins */
