@@ -328,15 +328,15 @@ static void set_sdc_power_ctrl(uint8_t slot)
 	if(slot == 1)
 	{
 		clk = TLMM_CUR_VAL_16MA;
-		cmd = TLMM_CUR_VAL_16MA;
-		dat = TLMM_CUR_VAL_16MA;
+		cmd = TLMM_CUR_VAL_10MA;
+		dat = TLMM_CUR_VAL_10MA;
 		reg = SDC1_HDRV_PULL_CTL;
 	}
 	else if(slot == 2)
 	{
 		clk = TLMM_CUR_VAL_16MA;
-		cmd = TLMM_CUR_VAL_16MA;
-		dat = TLMM_CUR_VAL_16MA;
+		cmd = TLMM_CUR_VAL_10MA;
+		dat = TLMM_CUR_VAL_10MA;
 		reg = SDC2_HDRV_PULL_CTL;
 	}
 	else
