@@ -1601,6 +1601,8 @@ static uint32_t mmc_card_init(struct mmc_device *dev)
 		 * 2. DDR mode host, if supported by host & card
 		 * 3. Use normal speed mode with supported bus width
 		 */
+// [Advantech] Use DDR mode for bootup stability
+#if 0
 		if (host->caps.hs400_support && mmc_card_supports_hs400_mode(card))
 		{
 			dprintf(INFO, "SDHC Running in HS400 mode\n");
@@ -1622,7 +1624,9 @@ static uint32_t mmc_card_init(struct mmc_device *dev)
 								  card->rca);
 				return mmc_return;
 			}
-		} else if (host->caps.ddr_support && mmc_card_supports_ddr_mode(card)) {
+		} else
+#endif
+		if (host->caps.ddr_support && mmc_card_supports_ddr_mode(card)) {
 			dprintf(INFO, "SDHC Running in DDR mode\n");
 			mmc_return = mmc_set_ddr_mode(host, card);
 
