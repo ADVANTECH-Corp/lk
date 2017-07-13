@@ -190,12 +190,14 @@ void target_init(void)
 	target_keystatus();
 
 	target_sdc_init();
+// [Advantech] Skip reading partition table for fastboot mode
+#if 0
 	if (partition_read_table())
 	{
 		dprintf(CRITICAL, "Error reading the partition table info\n");
 		ASSERT(0);
 	}
-
+#endif
 #if LONG_PRESS_POWER_ON
 	shutdown_detect();
 #endif
