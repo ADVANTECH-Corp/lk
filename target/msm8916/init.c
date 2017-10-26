@@ -604,3 +604,18 @@ uint32_t target_get_pmic()
 {
 	return PMIC_IS_PM8916;
 }
+
+// [Advantech] Customized fastboot trigger function
+extern int emmc_fastboot_check(void);
+
+int fastboot_trigger(void)
+{
+	if (target_is_emmc_boot())
+	{
+		if(emmc_fastboot_check())
+			dprintf(ALWAYS,"No boot-fastboot pattern\n");
+		else
+			return 1;
+	}
+	return 0;
+}

@@ -431,6 +431,45 @@ static int emmc_get_recovery_msg(struct recovery_message *in)
 	return 0;
 }
 
+// [Advantech] Check string in MISC partition
+int emmc_fastboot_check(void)
+{
+	int check_status = 1;
+	struct recovery_message *msg;
+	uint32_t block_size = 0;
+
+	block_size = mmc_get_device_blocksize();
+
+	// get fastboot message
+	msg = (struct recovery_message *)memalign(CACHE_LINE, block_size);
+	ASSERT(msg);
+
+	if(emmc_get_recovery_msg(msg))
+	{
+		if(msg)
+			free(msg);
+		return -1;
+	}
+
+	msg->command[sizeof(msg->command)-1] = '\0'; //Ensure termination
+	if (msg->command[0] != 0 && msg->command[0] != 255) {
+		dprintf(INFO,"Recovery command: %d %s\n",
+			sizeof(msg->command), msg->command);
+	}
+
+	if (!strcmp(msg->command, "boot-fastboot")) {
+		check_status = 0;
+
+		// clearing recovery command
+		strlcpy(msg->command, "", sizeof(msg->command));
+		emmc_set_recovery_msg(msg);
+	}
+
+	if(msg)
+		free(msg);
+	return check_status;
+}
+
 int _emmc_recovery_init(void)
 {
 	int update_status = 0;
